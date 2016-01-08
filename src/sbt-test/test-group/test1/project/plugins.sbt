@@ -1,0 +1,1 @@
+addSbtPlugin("com.blstream" % "sbt-search-maven-plugin" % sys.props("project.version"))
