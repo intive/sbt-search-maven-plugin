@@ -10,13 +10,13 @@ trait Search {
   def search(args: Seq[String], log: Logger) {
 
     val found = for {
-      head <- args.headOption.toRight[Error]("usage: searchMaven queryString").right
-      q <- query(head).right
-      artifacts <- parseResults(q).right
+      queryString <- args.headOption.toRight[Error]("usage: searchMaven queryString").right
+      jsonResults <- query(queryString).right
+      artifacts <- parseResults(jsonResults).right
     } yield artifacts
 
     found.fold(
-      err => log.error(err),
+      err => log.warn(err),
       _.foreach(a => log.info(s"${a.g} %% ${a.a} % ${a.latestVersion}"))
     )
   }
@@ -42,8 +42,19 @@ trait ResultsParser {
   def parseResults: String => Either[Error, List[Artifact]] =
     results => {
       val json = parse(results)
-      val artifacts = json \ "response" \ "docs"
-      Right(artifacts.extract[List[Artifact]])
+      val suggestionsJson = json \ "spellcheck" \ "suggestions"
+      if ( (json \ "response" \ "numFound").extract[Int] > 0 ) {
+        val artifacts = json \ "response" \ "docs"
+        Right(artifacts.extract[List[Artifact]])
+      } else {
+        suggestionsJson.extractOpt[List[String]] match {
+          case Some(_) => Left(s"Artifact not found")
+          case None => {
+            val suggestions = (suggestionsJson(1) \ "suggestion").extract[List[String]].mkString(", ")
+            Left(s"Artifact not found, did you mean: $suggestions")
+          }
+        }
+      }
     }
 
 }
