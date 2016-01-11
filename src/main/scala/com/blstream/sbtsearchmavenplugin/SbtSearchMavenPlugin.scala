@@ -3,7 +3,7 @@ package com.blstream.sbtsearchmavenplugin
 import sbt._
 import sbt.Keys.streams
 
-object SbtSearchMavenPlugin extends AutoPlugin with Search {
+object SbtSearchMavenPlugin extends AutoPlugin with SearchWithDependencies {
 
   object autoImport {
     lazy val searchMaven = InputKey[Unit]("searchMaven", "Search maven")
@@ -17,3 +17,8 @@ object SbtSearchMavenPlugin extends AutoPlugin with Search {
   )
 
 }
+
+trait SearchWithDependencies
+  extends Search
+  with MavenOrgSearcher
+  with ResultsParser
