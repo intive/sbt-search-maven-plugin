@@ -1,10 +1,7 @@
 package com.blstream.sbtsearchmavenplugin
 
 import sbt._
-import sbt.complete._
-//import complete.DefaultParsers._
-import sbt.Keys.{ streams, target }
-import java.nio.charset.Charset
+import sbt.Keys.streams
 import net.liftweb.json._
 
 object SbtSearchMavenPlugin extends AutoPlugin {
@@ -31,7 +28,8 @@ object SbtSearchMavenPlugin extends AutoPlugin {
       artifacts.extract[List[Artifact]]
     }
 
-    found.map(_.map(a => s"${a.g} %% ${a.a} % ${a.latestVersion}").foreach(x => log info x))
+    found.getOrElse(Nil)
+      .foreach(a => log.info(s"${a.g} %% ${a.a} % ${a.latestVersion}"))
   }
 
 }
