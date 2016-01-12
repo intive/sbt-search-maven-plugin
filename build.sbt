@@ -2,7 +2,7 @@ organization := "com.blstream"
 
 name := "sbt-search-maven-plugin"
 
-version := "0.1-SNAPSHOT"
+version := "0.1"
 
 sbtPlugin := true
 
