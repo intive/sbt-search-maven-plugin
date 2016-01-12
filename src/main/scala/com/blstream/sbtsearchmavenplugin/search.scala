@@ -1,6 +1,8 @@
 package com.blstream.sbtsearchmavenplugin
 
+import java.net.{ URL, URLConnection }
 import sbt.Logger
+import scala.util.Try
 
 case class Artifact(g: String, a: String, latestVersion: String)
 
@@ -37,11 +39,25 @@ trait Search {
 
 trait MavenOrgSearcher {
 
-  //TODO add timeout
   def query: String => Either[Error, String] =
     queryString => {
       val query = s"http://search.maven.org/solrsearch/select?q=$queryString&rows=20&wt=json"
-      Right(scala.io.Source.fromURL(query).mkString)
+      val connMaybe = prepareConnection(query)
+      connMaybe.right.map {
+        conn => scala.io.Source.fromInputStream(conn.getInputStream).mkString
+      }
+    }
+
+  private def prepareConnection: String => Either[Error, URLConnection] =
+    query => {
+      Try {
+        val conn = new URL(query).openConnection()
+        conn.setConnectTimeout(3000)
+        conn.setReadTimeout(3000)
+        Right(conn)
+      }.recover {
+        case _: Exception => Left("Connection failure, try again later.")
+      }.get
     }
 
 }
