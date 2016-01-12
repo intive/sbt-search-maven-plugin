@@ -17,9 +17,21 @@ trait Search {
 
     found.fold(
       err => log.warn(err),
-      _.foreach(a => log.info(s"${a.g} %% ${a.a} % ${a.latestVersion}"))
+      artifacts => printResults(log)(artifacts)
     )
   }
+
+  private def printResults: Logger => List[Artifact] => Unit =
+    log => artifacts => {
+      val separator = "%"
+      val max = countMaxColumnsSizes(artifacts)
+      artifacts.foreach(a =>
+        log.info(s"%-${max._1}s %s %-${max._2}s %s %-${max._3}s".format(a.g, separator, a.a, separator, a.latestVersion)))
+    }
+
+  private def countMaxColumnsSizes: List[Artifact] => (Int, Int, Int) =
+    artifacts =>
+      artifacts.foldLeft((0, 0, 0))((m, a) => (Math.max(m._1, a.g.length), Math.max(m._2, a.a.length), Math.max(m._3, a.latestVersion.length)))
 
 }
 
@@ -43,7 +55,7 @@ trait ResultsParser {
     results => {
       val json = parse(results)
       val suggestionsJson = json \ "spellcheck" \ "suggestions"
-      if ( (json \ "response" \ "numFound").extract[Int] > 0 ) {
+      if ((json \ "response" \ "numFound").extract[Int] > 0) {
         val artifacts = json \ "response" \ "docs"
         Right(artifacts.extract[List[Artifact]])
       } else {
