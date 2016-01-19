@@ -1,0 +1,86 @@
+{
+  "responseHeader": {
+    "status": 0,
+    "QTime": 1,
+    "params": {
+      "spellcheck": "true",
+      "fl": "id,g,a,latestVersion,p,ec,repositoryId,text,timestamp,versionCount",
+      "sort": "score desc,timestamp desc,g asc,a asc",
+      "indent": "off",
+      "q": "scalaz",
+      "qf": "text^20 g^5 a^10",
+      "spellcheck.count": "5",
+      "wt": "json",
+      "rows": "20",
+      "version": "2.2",
+      "defType": "dismax"
+    }
+  },
+  "response": {
+    "numFound": 495,
+    "start": 0,
+    "docs": [
+      {
+        "id": "com.workingmouse:scalaz",
+        "g": "com.workingmouse",
+        "a": "scalaz",
+        "latestVersion": "3.0",
+        "repositoryId": "central",
+        "p": "jar",
+        "timestamp": 1227569560000,
+        "versionCount": 5,
+        "text": [
+          "com.workingmouse",
+          "scalaz",
+          "-sources.jar",
+          ".jar",
+          ".pom"
+        ],
+        "ec": [
+          "-sources.jar",
+          ".jar",
+          ".pom"
+        ]
+      },
+      {
+        "id": "org.scalaz:scalaz_2.9.3",
+        "g": "org.scalaz",
+        "a": "scalaz_2.9.3",
+        "latestVersion": "7.1.6",
+        "repositoryId": "central",
+        "p": "N/A",
+        "timestamp": 1450110180000,
+        "versionCount": 12,
+        "text": [
+          "org.scalaz",
+          "scalaz_2.9.3",
+          "-javadoc.jar"
+        ],
+        "ec": [
+          "-javadoc.jar"
+        ]
+      },
+      {
+        "id": "org.scalaz:scalaz_2.11",
+        "g": "org.scalaz",
+        "a": "scalaz_2.11",
+        "latestVersion": "7.2.0",
+        "repositoryId": "central",
+        "p": "N/A",
+        "timestamp": 1449274113000,
+        "versionCount": 19,
+        "text": [
+          "org.scalaz",
+          "scalaz_2.11",
+          "-javadoc.jar"
+        ],
+        "ec": [
+          "-javadoc.jar"
+        ]
+      }
+    ]
+  },
+  "spellcheck": {
+    "suggestions": []
+  }
+}

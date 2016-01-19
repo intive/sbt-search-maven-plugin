@@ -76,10 +76,10 @@ trait ResultsParser {
         Right(artifacts.extract[List[Artifact]])
       } else {
         suggestionsJson.extractOpt[List[String]] match {
-          case Some(_) => Left(s"Artifact not found")
+          case Some(_) => Left("Artifact not found")
           case None => {
             val suggestions = (suggestionsJson(1) \ "suggestion").extract[List[String]].mkString(", ")
-            Left(s"Artifact not found, did you mean: $suggestions")
+            Left(s"Artifact not found, did you mean: $suggestions?")
           }
         }
       }

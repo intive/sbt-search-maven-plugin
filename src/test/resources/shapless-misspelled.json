@@ -1,0 +1,41 @@
+{
+  "responseHeader": {
+    "status": 0,
+    "QTime": 194,
+    "params": {
+      "spellcheck": "true",
+      "fl": "id,g,a,latestVersion,p,ec,repositoryId,text,timestamp,versionCount",
+      "sort": "score desc,timestamp desc,g asc,a asc",
+      "indent": "off",
+      "q": "shapless",
+      "qf": "text^20 g^5 a^10",
+      "spellcheck.count": "5",
+      "wt": "json",
+      "rows": "20",
+      "version": "2.2",
+      "defType": "dismax"
+    }
+  },
+  "response": {
+    "numFound": 0,
+    "start": 0,
+    "docs": []
+  },
+  "spellcheck": {
+    "suggestions": [
+      "shapless",
+      {
+        "numFound": 5,
+        "startOffset": 0,
+        "endOffset": 8,
+        "suggestion": [
+          "shapeless",
+          "shapes",
+          "staples",
+          "seamless",
+          "stateless"
+        ]
+      }
+    ]
+  }
+}

@@ -10,6 +10,8 @@ scriptedSettings
 
 scriptedLaunchOpts <+= version apply { v => "-Dproject.version="+v }
 
-libraryDependencies += "net.liftweb" %% "lift-json" % "2.6.2"
+libraryDependencies ++= Seq(
+  "net.liftweb" %% "lift-json"    % "2.6.2",
+  "org.specs2"  %% "specs2-core"  % "3.7"  % "test")
 
 scalariformSettings
