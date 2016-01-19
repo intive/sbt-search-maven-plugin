@@ -29,15 +29,22 @@ trait ArtifactsPrinter {
   def printArtifacts: List[Artifact] => String =
     artifacts => {
       val separator = "%"
+      val quotesLength = 2
       val max = countMaxColumnsSizes(artifacts)
       artifacts.map { a =>
-        s"%-${max._1}s %s %-${max._2}s %s %-${max._3}s".format(a.g, separator, a.a, separator, a.latestVersion).trim
+        val col1Length = max._1 + quotesLength
+        val col2Length = max._2 + quotesLength
+        val group = s""""${a.g}""""
+        val artifact = s""""${a.a}""""
+        val version = s""""${a.latestVersion}""""
+
+        s"%-${col1Length}s %s %-${col2Length}s %s %s".format(group, separator, artifact, separator, version).trim
       }.mkString("\n")
     }
 
-  private def countMaxColumnsSizes: List[Artifact] => (Int, Int, Int) =
+  private def countMaxColumnsSizes: List[Artifact] => (Int, Int) =
     artifacts =>
-      artifacts.foldLeft((0, 0, 0))((m, a) => (Math.max(m._1, a.g.length), Math.max(m._2, a.a.length), Math.max(m._3, a.latestVersion.length)))
+      artifacts.foldLeft((0, 0))((m, a) => (Math.max(m._1, a.g.length), Math.max(m._2, a.a.length)))
 
 }
 
