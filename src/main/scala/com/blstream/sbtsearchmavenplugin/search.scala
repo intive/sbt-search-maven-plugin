@@ -7,7 +7,7 @@ import scala.util.Try
 case class Artifact(g: String, a: String, latestVersion: String)
 
 trait Search {
-  self: MavenOrgSearcher with ResultsParser with ResultsPrinter =>
+  self: MavenOrgSearcher with ResultsParser with ArtifactsPrinter =>
 
   def search(args: Seq[String], log: Logger): Unit = {
     val found = for {
@@ -18,15 +18,15 @@ trait Search {
 
     found.fold(
       err => log.warn(err),
-      artifacts => log.info(printResults(artifacts))
+      artifacts => log.info(printArtifacts(artifacts))
     )
   }
 
 }
 
-trait ResultsPrinter {
+trait ArtifactsPrinter {
 
-  def printResults: List[Artifact] => String =
+  def printArtifacts: List[Artifact] => String =
     artifacts => {
       val separator = "%"
       val max = countMaxColumnsSizes(artifacts)
