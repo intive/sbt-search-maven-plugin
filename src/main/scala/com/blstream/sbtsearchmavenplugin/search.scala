@@ -9,8 +9,7 @@ case class Artifact(g: String, a: String, latestVersion: String)
 trait Search {
   self: MavenOrgSearcher with ResultsParser =>
 
-  def search(args: Seq[String], log: Logger) {
-
+  def search(args: Seq[String], log: Logger): Unit = {
     val found = for {
       queryString <- args.headOption.toRight[Error]("usage: searchMaven queryString").right
       jsonResults <- query(queryString).right
@@ -19,16 +18,17 @@ trait Search {
 
     found.fold(
       err => log.warn(err),
-      artifacts => printResults(log)(artifacts)
+      artifacts => log.info(printResults(artifacts))
     )
   }
 
-  private def printResults: Logger => List[Artifact] => Unit =
-    log => artifacts => {
+  private def printResults: List[Artifact] => String =
+    artifacts => {
       val separator = "%"
       val max = countMaxColumnsSizes(artifacts)
-      artifacts.foreach(a =>
-        log.info(s"%-${max._1}s %s %-${max._2}s %s %-${max._3}s".format(a.g, separator, a.a, separator, a.latestVersion)))
+      artifacts.map { a =>
+        s"%-${max._1}s %s %-${max._2}s %s %-${max._3}s".format(a.g, separator, a.a, separator, a.latestVersion)
+      }.mkString("\n")
     }
 
   private def countMaxColumnsSizes: List[Artifact] => (Int, Int, Int) =
