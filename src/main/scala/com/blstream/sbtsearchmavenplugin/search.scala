@@ -39,7 +39,7 @@ trait Search {
 
 trait MavenOrgSearcher {
 
-  def query: String => Either[Error, String] =
+  def query: String => Either[Error, Json] =
     queryString => {
       val query = s"http://search.maven.org/solrsearch/select?q=$queryString&rows=20&wt=json"
       val connMaybe = prepareConnection(query)
@@ -67,7 +67,7 @@ trait ResultsParser {
   import net.liftweb.json._
   implicit val formats = DefaultFormats
 
-  def parseResults: String => Either[Error, List[Artifact]] =
+  def parseResults: Json => Either[Error, List[Artifact]] =
     results => {
       val json = parse(results)
       val suggestionsJson = json \ "spellcheck" \ "suggestions"
