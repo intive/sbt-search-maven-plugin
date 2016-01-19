@@ -2,6 +2,10 @@
 
 Plugin to search maven artifacts. It uses [search.maven.org](http://search.maven.org/) for querying.
 
+## CI
+
+[![Build Status](https://travis-ci.org/blstream/sbt-search-maven-plugin.svg?branch=master)](https://travis-ci.org/blstream/sbt-search-maven-plugin)
+
 ## Installation
 It's not yet in Maven central, so manual build using sbt is needed. `Test-project` subproject is a perfect way to test functionality during development.
 
