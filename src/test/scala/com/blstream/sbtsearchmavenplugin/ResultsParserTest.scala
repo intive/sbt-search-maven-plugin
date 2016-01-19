@@ -5,7 +5,7 @@ import org.specs2.mutable.Specification
 class ResultsParserTest extends Specification
     with ResultsParser {
 
-  "parseResults" >> {
+  "parseResults" should {
     "extract artifacts from json" >> {
       val scalazSearch = scala.io.Source.fromURL(getClass.getResource("/scalaz.json")).mkString
       val artifacts = List(

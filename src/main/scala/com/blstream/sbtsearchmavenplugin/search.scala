@@ -31,7 +31,7 @@ trait ArtifactsPrinter {
       val separator = "%"
       val max = countMaxColumnsSizes(artifacts)
       artifacts.map { a =>
-        s"%-${max._1}s %s %-${max._2}s %s %-${max._3}s".format(a.g, separator, a.a, separator, a.latestVersion)
+        s"%-${max._1}s %s %-${max._2}s %s %-${max._3}s".format(a.g, separator, a.a, separator, a.latestVersion).trim
       }.mkString("\n")
     }
 
