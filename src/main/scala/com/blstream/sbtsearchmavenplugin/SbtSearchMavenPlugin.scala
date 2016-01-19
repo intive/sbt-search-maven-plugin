@@ -22,3 +22,4 @@ trait SearchWithDependencies
   extends Search
   with MavenOrgSearcher
   with ResultsParser
+  with ResultsPrinter
