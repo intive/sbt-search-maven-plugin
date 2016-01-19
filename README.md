@@ -17,8 +17,8 @@ It's not yet in Maven central, so manual build using sbt is needed. `Test-projec
 * [Filter by scala version](https://github.com/blstream/sbt-search-maven-plugin/issues/1)
 * Add one of found dependencies to `build.sbt`
 * Search in other sources than search.maven.org, i.e. bintray.com (where typesafe repositories are)
-* Add tests
-* Add continues deployment
+* ~~Add tests~~
+* ~~Add continues deployment~~
 
 ## Contribution
 You can pick a feature from roadmap, remove some TODO or fix some bug. Pull requests are very welcome.
@@ -28,6 +28,7 @@ You can pick a feature from roadmap, remove some TODO or fix some bug. Pull requ
 * [sbt](https://github.com/sbt/sbt)
 * [sbt-scalariform](https://github.com/sbt/sbt-scalariform)
 * [lift-json](https://github.com/lift/lift/tree/master/framework/lift-base/lift-json/)
+* [specs2](https://github.com/etorreborre/specs2)
 
 ## License
 see `LICENSE` file
