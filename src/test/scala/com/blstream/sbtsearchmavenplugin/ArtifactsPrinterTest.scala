@@ -12,9 +12,10 @@ class ArtifactsPrinterTest extends Specification
         Artifact("foo", "bar", "baz"),
         Artifact("some", "other", "2")
       )
-      val text = printArtifacts(artifacts)
+      val text = printArtifacts("foo")(artifacts)
       val expectedResult =
-        s""""org.scalaz" % "z"     % "1"
+        s"""Results for foo:
+           |"org.scalaz" % "z"     % "1"
            |"foo"        % "bar"   % "baz"
            |"some"       % "other" % "2"""".stripMargin
 

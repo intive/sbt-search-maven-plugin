@@ -7,18 +7,21 @@ import scala.util.Try
 case class Artifact(g: String, a: String, latestVersion: String)
 
 trait Search {
-  self: MavenOrgSearcher with ResultsParser with ArtifactsPrinter =>
+  self: MavenOrgSearcher with QueryCleaner with ResultsParser with ArtifactsPrinter =>
 
   def search(args: Seq[String], log: Logger): Unit = {
-    val found = for {
+    val results = for {
       queryString <- args.headOption.toRight[Error]("usage: searchMaven queryString").right
-      jsonResults <- query(queryString).right
+      cleanedQuery <- cleanQuery(queryString).right
+      jsonResults <- query(cleanedQuery).right
       artifacts <- parseResults(jsonResults).right
-    } yield artifacts
+    } yield {
+      printArtifacts(cleanedQuery)(artifacts)
+    }
 
-    found.fold(
-      err => log.warn(err),
-      artifacts => log.info(printArtifacts(artifacts))
+    results.fold(
+      log.warn(_),
+      log.info(_)
     )
   }
 
@@ -26,8 +29,8 @@ trait Search {
 
 trait ArtifactsPrinter {
 
-  def printArtifacts: List[Artifact] => String =
-    artifacts => {
+  def printArtifacts: String => List[Artifact] => String =
+    query => artifacts => {
       val separator = "%"
       val quotesLength = 2
       val max = countMaxColumnsSizes(artifacts)
@@ -39,13 +42,23 @@ trait ArtifactsPrinter {
         val version = s""""${a.latestVersion}""""
 
         s"%-${col1Length}s %s %-${col2Length}s %s %s".format(group, separator, artifact, separator, version).trim
-      }.mkString("\n")
+      }.mkString(s"Results for $query:\n", "\n", "")
     }
 
   private def countMaxColumnsSizes: List[Artifact] => (Int, Int) =
     artifacts =>
       artifacts.foldLeft((0, 0))((m, a) => (Math.max(m._1, a.g.length), Math.max(m._2, a.a.length)))
 
+}
+
+trait QueryCleaner {
+  def cleanQuery: String => Either[Error, String] =
+    rawQuery => {
+      val pattern = "[^a-zA-Z0-9-]".r
+      val q = pattern.replaceAllIn(rawQuery, "")
+      if (q.isEmpty) Left("Empty query, only a-zA-Z0-9- allowed")
+      else Right(q)
+    }
 }
 
 trait MavenOrgSearcher {

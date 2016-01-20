@@ -21,5 +21,6 @@ object SbtSearchMavenPlugin extends AutoPlugin with SearchWithDependencies {
 trait SearchWithDependencies
   extends Search
   with MavenOrgSearcher
+  with QueryCleaner
   with ResultsParser
   with ArtifactsPrinter
