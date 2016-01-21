@@ -14,14 +14,17 @@ It's not yet in Maven central, so manual build using sbt is needed. `Test-projec
 
 ## Future work
 
-* [Filter by scala version](https://github.com/blstream/sbt-search-maven-plugin/issues/1)
+* [~~Filter by scala version~~](https://github.com/blstream/sbt-search-maven-plugin/issues/1)
+    * search.maven.org let searching by keywords, but also by tags (i.e. scalaVersion), but not by both of them in one query
 * Add one of found dependencies to `build.sbt`
-* Search in other sources than search.maven.org, i.e. bintray.com (where typesafe repositories are)
+* ~~Search in other sources than search.maven.org, i.e. bintray.com (where typesafe repositories are)~~
+    * Bintray allows searching only logged in users (and without limits only to users that paid for that account)
 * ~~Add tests~~
 * ~~Add continues deployment~~
+* Add plugin to maven central
 
 ## Contribution
-You can pick a feature from roadmap, remove some TODO or fix some bug. Pull requests are very welcome.
+You can pick feature from future work section of this readme, issue with feature proposal (if any) or fix some bug. Pull requests are very welcome.
 
 ## Thanks to all contributors of:
 
