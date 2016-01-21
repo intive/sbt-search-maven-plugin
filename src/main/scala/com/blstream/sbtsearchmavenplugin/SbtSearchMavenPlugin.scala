@@ -12,7 +12,6 @@ object SbtSearchMavenPlugin extends AutoPlugin with SearchWithDependencies {
   import autoImport._
 
   override lazy val projectSettings = Seq(
-    //TODO: maybe custom parser is a better idea here
     searchMaven := search(complete.DefaultParsers.spaceDelimited("<arg>").parsed, streams.value.log)
   )
 
