@@ -2,7 +2,11 @@ organization := "com.blstream"
 
 name := "sbt-search-maven-plugin"
 
-version := "0.1"
+description := "Sbt plugin to search with search.maven.org"
+
+licenses += ("MIT", url("https://opensource.org/licenses/MIT"))
+
+version := "0.1.0"
 
 scalaVersion := "2.10.6"
 
