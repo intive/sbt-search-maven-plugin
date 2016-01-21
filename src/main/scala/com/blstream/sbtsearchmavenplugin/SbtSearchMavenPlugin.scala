@@ -5,6 +5,8 @@ import sbt.Keys.streams
 
 object SbtSearchMavenPlugin extends AutoPlugin with SearchWithDependencies {
 
+  override def trigger = allRequirements
+
   object autoImport {
     lazy val searchMaven = InputKey[Unit]("searchMaven", "Search maven")
   }
