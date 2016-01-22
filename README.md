@@ -4,8 +4,16 @@
 
 Plugin to search maven artifacts. It uses [search.maven.org](http://search.maven.org/) for querying.
 
-## Installation
-It's not yet in Maven central, so manual build using sbt is needed. `Test-project` subproject is a perfect way to test functionality during development.
+## Usage
+### Add to `plugins.sbt`:
+    
+    addSbtPlugin("com.blstream" % "sbt-search-maven-plugin" % "0.1.1")
+    
+### searching
+
+Plugin adds `searchMaven` task, to find some 'artifact' just type
+
+    searchMaven <artifact>
 
 ## Directory structure
 
@@ -21,7 +29,7 @@ It's not yet in Maven central, so manual build using sbt is needed. `Test-projec
     * Bintray allows searching only logged in users (and without limits only to users that paid for that account)
 * ~~Add tests~~
 * ~~Add continues deployment~~
-* Add plugin to maven central
+* ~~Add plugin to maven central~~
 
 ## Contribution
 You can pick feature from future work section of this readme, issue with feature proposal (if any) or fix some bug. Pull requests are very welcome.
