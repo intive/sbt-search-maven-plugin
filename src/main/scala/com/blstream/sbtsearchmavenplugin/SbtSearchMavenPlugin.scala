@@ -1,7 +1,7 @@
 package com.blstream.sbtsearchmavenplugin
 
 import sbt._
-import sbt.Keys.streams
+import sbt.Keys.{ streams, aggregate }
 
 object SbtSearchMavenPlugin extends AutoPlugin with SearchWithDependencies {
 
@@ -14,7 +14,8 @@ object SbtSearchMavenPlugin extends AutoPlugin with SearchWithDependencies {
   import autoImport._
 
   override lazy val projectSettings = Seq(
-    searchMaven := search(complete.DefaultParsers.spaceDelimited("<arg>").parsed, streams.value.log)
+    searchMaven := search(complete.DefaultParsers.spaceDelimited("<arg>").parsed, streams.value.log),
+    aggregate in searchMaven := false
   )
 
 }

@@ -6,7 +6,7 @@ description := "Sbt plugin to search with search.maven.org"
 
 licenses += ("MIT", url("https://opensource.org/licenses/MIT"))
 
-version := "0.1.1"
+version := "0.1.2"
 
 scalaVersion := "2.10.6"
 
