@@ -7,7 +7,7 @@ Plugin to search maven artifacts. It uses [search.maven.org](http://search.maven
 ## Usage
 ### Add to `plugins.sbt`:
     
-    addSbtPlugin("com.blstream" % "sbt-search-maven-plugin" % "0.1.1")
+    addSbtPlugin("com.blstream" % "sbt-search-maven-plugin" % "0.1.2")
     
 ### searching
 
