@@ -15,9 +15,9 @@ class ArtifactsPrinterTest extends Specification
       val text = printArtifacts("foo")(artifacts)
       val expectedResult =
         s"""Results for foo:
-           |"org.scalaz" % "z"     % "1"
-           |"foo"        % "bar"   % "baz"
-           |"some"       % "other" % "2"""".stripMargin
+           |[0] "org.scalaz" % "z"     % "1"
+           |[1] "foo"        % "bar"   % "baz"
+           |[2] "some"       % "other" % "2"""".stripMargin
 
       text must beEqualTo(expectedResult)
     }
